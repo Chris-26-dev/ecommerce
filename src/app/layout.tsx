@@ -29,9 +29,7 @@ export default function RootLayout({
       <body
         className={`${jost.variable} ${jostMono.variable} antialiased`}
       >
-        <Navbar />
         {children}
-        <Footer />
       </body>
     </html>
   );
