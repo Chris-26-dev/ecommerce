@@ -67,15 +67,27 @@ export default function ProductGallery({
 
   return (
     <section className={`flex w-full flex-col gap-4 lg:flex-row ${className}`}>
-      <div className="order-2 flex gap-3 overflow-x-auto lg:order-1 lg:flex-col">
+      {/* thumbnails: no mini-scroll, show full small views (object-cover, slightly zoomed) */}
+      <div className="order-2 flex flex-wrap gap-3 lg:order-1 lg:flex-col">
         {images.map((src, i) => (
           <button
             key={`${src}-${i}`}
             aria-label={`Thumbnail ${i + 1}`}
             onClick={() => setActiveIndex(i)}
-            className={`relative h-16 w-16 flex-shrink-0 overflow-hidden rounded-lg ring-1 ring-light-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[--color-dark-500] ${i === activeIndex ? "ring-[--color-dark-500]" : ""}`}
+            className={`relative h-16 w-16 overflow-hidden rounded-lg ring-1 ring-light-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[--color-dark-500] ${
+              i === activeIndex ? "ring-[--color-dark-500]" : ""
+            }`}
+            type="button"
           >
-            <Image src={src} alt={`Thumbnail ${i + 1}`} fill sizes="64px" className="object-cover" />
+            <div className="relative h-full w-full overflow-hidden">
+              <Image
+                src={src}
+                alt={`Thumbnail ${i + 1}`}
+                fill
+                sizes="64px"
+                className="object-cover transform scale-105"
+              />
+            </div>
           </button>
         ))}
       </div>
