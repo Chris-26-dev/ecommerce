@@ -1,10 +1,8 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import Image from "next/image";
+import React, { useState } from "react";
 import Link from "next/link";
-import { useCartStore } from "@/store/cart";
-import { ShoppingBag } from "lucide-react";
+import Image from "next/image";
 
 const NAV_LINKS = [
   { label: "Men", href: "/products?gender=men" },
@@ -16,23 +14,15 @@ const NAV_LINKS = [
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
-  const itemCount = useCartStore((s) => s.getItemCount());
-
-  // avoid hydration mismatch for numeric content, but keep the badge visible always
-  const [mounted, setMounted] = useState(false);
-  useEffect(() => setMounted(true), []);
 
   return (
     <header className="sticky top-0 z-50 bg-light-100">
-      <nav
-        className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8"
-        aria-label="Primary"
-      >
+      <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8" aria-label="Primary">
         <Link href="/" aria-label="Home" className="flex items-center">
           <Image src="/logo.svg" alt="Logo" width={28} height={28} priority className="invert" />
         </Link>
 
-        <ul className="hidden items-center gap-8 md:flex">
+        <ul className="hidden md:flex items-center gap-8">
           {NAV_LINKS.map((l) => (
             <li key={l.href}>
               <Link href={l.href} className="text-body text-dark-900 transition-colors hover:text-dark-700">
@@ -42,26 +32,18 @@ export default function Navbar() {
           ))}
         </ul>
 
-        <div className="hidden items-center gap-6 md:flex">
+        <div className="hidden md:flex items-center gap-6">
           <button className="text-body text-dark-900 transition-colors hover:text-dark-700">Search</button>
-
-          <Link
-            href="/cart"
-            className="relative inline-flex items-center gap-2 text-body text-dark-900 transition-colors hover:text-dark-700"
-            aria-label={mounted ? `Open cart, ${itemCount} items` : "Open cart"}
-          >
-            <ShoppingBag className="h-5 w-5" />
-            {/* keep badge visible even when there are 0 items */}
-            <span
-              className="ml-1 inline-flex h-5 min-w-[20px] px-1 items-center justify-center rounded-full bg-dark-900 text-xs text-white"
-              aria-hidden
-            >
-              {mounted ? itemCount : "\u00A0"}
-            </span>
-            <span className="sr-only">My Cart</span>
+          <Link href="/cart" className="relative inline-flex items-center gap-2 text-body text-dark-900 transition-colors hover:text-dark-700" aria-label="Open cart">
+            {/* cart icon / badge handled elsewhere */}
+            <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" aria-hidden>
+              <path d="M3 3h2l1 14a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2l1-14h2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+            </svg>
+            <span className="ml-1 inline-flex h-5 min-w-[20px] px-1 items-center justify-center rounded-full bg-dark-900 text-xs text-white">0</span>
           </Link>
         </div>
 
+        {/* mobile hamburger */}
         <button
           type="button"
           className="inline-flex items-center justify-center rounded-md p-2 md:hidden"
@@ -70,37 +52,44 @@ export default function Navbar() {
           onClick={() => setOpen((v) => !v)}
         >
           <span className="sr-only">Toggle navigation</span>
-          <span className="mb-1 block h-0.5 w-6 bg-dark-900"></span>
-          <span className="mb-1 block h-0.5 w-6 bg-dark-900"></span>
-          <span className="block h-0.5 w-6 bg-dark-900"></span>
+
+          {/* improved hamburger: three equal lines, centered X when open */}
+          <span className="relative block h-6 w-6">
+            <span
+              aria-hidden
+              className={`absolute left-0 h-0.5 w-6 bg-dark-900 transition-transform duration-200 ${open ? "top-1/2 -translate-y-1/2 rotate-45" : "top-1"}`}
+            />
+            <span
+              aria-hidden
+              className={`absolute left-0 h-0.5 w-6 bg-dark-900 transition-opacity duration-150 ${open ? "opacity-0" : "top-1/2 -translate-y-1/2"}`}
+            />
+            <span
+              aria-hidden
+              className={`absolute left-0 h-0.5 w-6 bg-dark-900 transition-transform duration-200 ${open ? "top-1/2 -translate-y-1/2 -rotate-45" : "bottom-1"}`}
+            />
+          </span>
         </button>
       </nav>
 
-      <div id="mobile-menu" className={`border-t border-light-300 md:hidden ${open ? "block" : "hidden"}`}>
-        <ul className="space-y-2 px-4 py-3">
+      {/* mobile menu */}
+      <div id="mobile-menu" className={`md:hidden border-t border-light-300 ${open ? "block" : "hidden"}`}>
+        <div className="space-y-2 px-4 py-3">
           {NAV_LINKS.map((l) => (
-            <li key={l.href}>
-              <Link href={l.href} className="block py-2 text-body text-dark-900 hover:text-dark-700" onClick={() => setOpen(false)}>
-                {l.label}
-              </Link>
-            </li>
-          ))}
-          <li className="flex items-center justify-between pt-2">
-            <button className="text-body">Search</button>
-            <Link
-              href="/cart"
-              className="text-body inline-flex items-center gap-2"
-              onClick={() => setOpen(false)}
-              aria-label={mounted ? `Open cart, ${itemCount} items` : "Open cart"}
-            >
-              <ShoppingBag className="h-5 w-5" />
-              <span className="ml-1 inline-flex h-5 min-w-[20px] px-1 items-center justify-center rounded-full bg-dark-900 text-xs text-white">
-                {mounted ? itemCount : "\u00A0"}
-              </span>
-              <span className="sr-only">My Cart</span>
+            <Link key={l.href} href={l.href} onClick={() => setOpen(false)} className="block py-2 text-body text-dark-900 hover:text-dark-700">
+              {l.label}
             </Link>
-          </li>
-        </ul>
+          ))}
+
+          <div className="flex items-center justify-between pt-2">
+            <button className="text-body">Search</button>
+            <Link href="/cart" onClick={() => setOpen(false)} className="inline-flex items-center gap-2 text-body text-dark-900">
+              <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" aria-hidden>
+                <path d="M3 3h2l1 14a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2l1-14h2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+              <span className="ml-1 inline-flex h-5 min-w-[20px] px-1 items-center justify-center rounded-full bg-dark-900 text-xs text-white">0</span>
+            </Link>
+          </div>
+        </div>
       </div>
     </header>
   );

@@ -57,3 +57,12 @@
   --text-footnote--line-height: 18px;
   --text-footnote--font-weight: 400;
 }
+
+/* Tailwind version 4 documentation if u want to reverse the cursor pointer in button not in links*/
+@layer base {
+
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+}
