@@ -66,8 +66,7 @@ export default function Navbar() {
       // ignore
     } finally {
       setLoggedIn(false);
-      // reload so server-side props reflect signed-out state
-      router.push("/sign-up");
+      router.push("/");
     }
   }
 
