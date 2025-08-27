@@ -23,25 +23,53 @@ export default function CartClient() {
   const clearCart = useCartStore((s) => s.clearCart);
 
   const router = useRouter();
+  const [checkoutLoading, setCheckoutLoading] = useState(false);
 
   async function handleCheckout() {
+    setCheckoutLoading(true);
     try {
-      const res = await fetch("/api/auth/check", { method: "GET", credentials: "include", cache: "no-store" });
+      // prepare cart items payload
+      const payload = {
+        items: items.map((item: any) => ({
+          id: item.id || `item-${Math.random()}`,
+          name: item.name || item.title || 'Item',
+          price: item.price || item.unitPrice || 0,
+          quantity: item.quantity || 1,
+          image: item.image || item.img,
+        })),
+      };
+
+      const res = await fetch("/api/checkout", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+        credentials: "include",
+      });
+
+      // if not authenticated, redirect to signup
+      if (res.status === 401) {
+        router.push("/sign-up");
+        return;
+      }
+
       if (!res.ok) {
-        // not authenticated
-        router.replace("http://localhost:3000/sign-up");
+        const errorData = await res.json();
+        console.error("Checkout error:", errorData);
+        // handle other errors here
         return;
       }
+
       const data = await res.json();
-      if (!data?.loggedIn) {
-        router.replace("http://localhost:3000/sign-up");
-        return;
+      if (data?.url) {
+        // redirect to Stripe checkout
+        window.location.href = data.url;
+      } else {
+        console.error("No checkout URL received");
       }
-      // authenticated -> proceed to checkout
-      router.push("/checkout");
-    } catch (e) {
-      // on error assume not authenticated
-      router.replace("http://localhost:3000/sign-up");
+    } catch (err) {
+      console.error("Checkout failed:", err);
+    } finally {
+      setCheckoutLoading(false);
     }
   }
 
@@ -238,10 +266,11 @@ export default function CartClient() {
           <div className="space-y-2">
             <button
               onClick={handleCheckout}
-              className="w-full rounded-md bg-[--color-dark-900] px-4 py-3 text-black"
+              disabled={checkoutLoading}
+              className="w-full rounded-md bg-[--color-dark-900] px-4 py-3 text-black disabled:opacity-50"
               type="button"
             >
-              Checkout
+              {checkoutLoading ? "Redirecting…" : "Checkout"}
             </button>
 
             <button

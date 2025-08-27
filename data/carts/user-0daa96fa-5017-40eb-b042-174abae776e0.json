@@ -1,18 +1,39 @@
 {
   "items": [
     {
-      "id": "9e974ddd-7721-47f2-9ed4-c71c5594a935",
-      "name": "Nike Air Max 13",
-      "price": 148.99,
+      "id": "735fcb10-684b-4d71-81fc-d4b6dd06a8eb::83512253-f237-4e9a-96b0-bac9e4305e42",
+      "name": "Nike Air Max 15",
+      "price": 115.99,
       "quantity": 1,
-      "image": "/static/uploads/shoes/9e974ddd-7721-47f2-9ed4-c71c5594a935-shoe-13.avif"
+      "image": "/static/uploads/shoes/735fcb10-684b-4d71-81fc-d4b6dd06a8eb-shoe-15.avif"
     },
     {
-      "id": "44aa8bb1-787d-4260-8c7e-d7c8b9373c2d",
-      "name": "Nike Air Max 2",
-      "price": 171.99,
+      "id": "3c1747e8-e4a2-428f-972f-30145ce9e00d::1dc49c94-376c-4763-bea9-c3db64a453a1",
+      "name": "Nike Air Max 12",
+      "price": 82.99,
       "quantity": 1,
-      "image": "/static/uploads/shoes/44aa8bb1-787d-4260-8c7e-d7c8b9373c2d-shoe-2.webp"
+      "image": "/static/uploads/shoes/3c1747e8-e4a2-428f-972f-30145ce9e00d-shoe-12.avif"
+    },
+    {
+      "id": "c86248b3-e235-488e-97e9-67596304a247",
+      "name": "Nike Air Max 10",
+      "price": 154.99,
+      "quantity": 1,
+      "image": "/static/uploads/shoes/c86248b3-e235-488e-97e9-67596304a247-shoe-10.avif"
+    },
+    {
+      "id": "2f319017-17ee-44c1-b100-26bb096bef8c",
+      "name": "Nike Air Max 11",
+      "price": 158.99,
+      "quantity": 1,
+      "image": "/static/uploads/shoes/2f319017-17ee-44c1-b100-26bb096bef8c-shoe-11.avif"
+    },
+    {
+      "id": "116acb9a-1736-4e93-b4ad-8f254667762a",
+      "name": "Nike Air Max 6",
+      "price": 105.99,
+      "quantity": 1,
+      "image": "/static/uploads/shoes/116acb9a-1736-4e93-b4ad-8f254667762a-shoe-6.avif"
     }
   ]
 }
