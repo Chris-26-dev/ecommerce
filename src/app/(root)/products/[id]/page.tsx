@@ -7,6 +7,7 @@ import SizePicker from "@/components/SizePicker";
 import { Heart, ShoppingBag, Star } from "lucide-react";
 import ColorSwatches from "@/components/ColorSwatches";
 import AddToBag from "@/components/AddToBag";
+import FavoriteButton from "@/components/FavoriteButton";
 import { getProduct, getProductReviews, getRecommendedProducts, type Review, type RecommendedProduct } from "@/lib/actions/product";
 
 type GalleryVariant = { color: string; images: string[] };
@@ -194,10 +195,12 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
               price={Number(displayPrice ?? 0)}
               image={galleryVariants[0]?.images?.[0] ?? null}
             />
-            <button className="flex items-center justify-center gap-2 rounded-full border border-light-300 px-6 py-4 text-body-medium text-dark-900 transition hover:border-dark-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-[--color-dark-500]">
-              <Heart className="h-5 w-5" />
-              Favorite
-            </button>
+            <FavoriteButton
+              id={product.id}
+              name={product.name}
+              price={Number(displayPrice ?? 0)}
+              image={galleryVariants[0]?.images?.[0] ?? null}
+            />
           </div>
 
           <CollapsibleSection title="Product Details" defaultOpen>
