@@ -105,11 +105,13 @@ export async function signIn(formData: FormData) {
   return { ok: true, userId: res.user?.id };
 }
 
-export async function getCurrentUser() {
+export async function getCurrentUser(requestHeaders?: Record<string, string> | Headers) {
   try {
+    // allow callers (API route) to pass the request headers explicitly
+    const hdrs = requestHeaders ?? (await headers());
     const session = await auth.api.getSession({
-      headers: await headers()
-    })
+      headers: hdrs as any,
+    });
 
     return session?.user ?? null;
   } catch (e) {
@@ -118,9 +120,18 @@ export async function getCurrentUser() {
   }
 }
 
-export async function signOut() {
-  await auth.api.signOut({ headers: {} });
-  return { ok: true };
+// change signOut to accept headers from caller (API route)
+export async function signOut(requestHeaders?: Record<string, string> | Headers) {
+  try {
+    const hdrs = requestHeaders ?? {};
+    await auth.api.signOut({
+      headers: hdrs as any,
+    });
+    return { ok: true };
+  } catch (e) {
+    console.error("signOut error", e);
+    return { ok: false };
+  }
 }
 
 export async function mergeGuestCartWithUserCart() {
