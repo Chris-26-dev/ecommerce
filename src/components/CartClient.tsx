@@ -6,6 +6,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Trash2, Minus, Plus } from "lucide-react";
 import Spinner from "@/components/Spinner";
+import { useRouter } from "next/navigation";
 
 type SyncPayload = { items: { id: string; name: string; price: number; quantity: number; image?: string }[] };
 
@@ -20,6 +21,29 @@ export default function CartClient() {
   const removeItem = useCartStore((s) => s.removeItem);
   const updateQuantity = useCartStore((s) => s.updateQuantity);
   const clearCart = useCartStore((s) => s.clearCart);
+
+  const router = useRouter();
+
+  async function handleCheckout() {
+    try {
+      const res = await fetch("/api/auth/check", { method: "GET", credentials: "include", cache: "no-store" });
+      if (!res.ok) {
+        // not authenticated
+        router.replace("http://localhost:3000/sign-up");
+        return;
+      }
+      const data = await res.json();
+      if (!data?.loggedIn) {
+        router.replace("http://localhost:3000/sign-up");
+        return;
+      }
+      // authenticated -> proceed to checkout
+      router.push("/checkout");
+    } catch (e) {
+      // on error assume not authenticated
+      router.replace("http://localhost:3000/sign-up");
+    }
+  }
 
   const [loading, setLoading] = useState(true);
   const syncTimer = useRef<number | null>(null);
@@ -213,10 +237,8 @@ export default function CartClient() {
 
           <div className="space-y-2">
             <button
-              onClick={() => {
-                alert("Implement checkout flow");
-              }}
-              className="w-full rounded-md bg-[--color-dark-900] px-4 py-3 text-white"
+              onClick={handleCheckout}
+              className="w-full rounded-md bg-[--color-dark-900] px-4 py-3 text-black"
               type="button"
             >
               Checkout
