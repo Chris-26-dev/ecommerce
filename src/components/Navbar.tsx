@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { useCartStore } from "@/store/cart";
 
 const NAV_LINKS = [
   { label: "Men", href: "/products?gender=men" },
@@ -15,11 +16,14 @@ const NAV_LINKS = [
 export default function Navbar() {
   const [open, setOpen] = useState(false);
 
+  // subscribe directly to items.length so component re-renders when items change
+  const itemCount = useCartStore((s) => s.items.length);
+
   return (
     <header className="sticky top-0 z-50 bg-light-100">
       <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8" aria-label="Primary">
         <Link href="/" aria-label="Home" className="flex items-center">
-          <Image src="/logo.svg" alt="Logo" width={28} height={28} priority className="invert" />
+          <Image src="/logo.svg" alt="Logo" width={48} height={48} priority className="invert" />
         </Link>
 
         <ul className="hidden md:flex items-center gap-8">
@@ -39,7 +43,7 @@ export default function Navbar() {
             <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" aria-hidden>
               <path d="M3 3h2l1 14a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2l1-14h2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
-            <span className="ml-1 inline-flex h-5 min-w-[20px] px-1 items-center justify-center rounded-full bg-dark-900 text-xs text-white">0</span>
+            <span className="ml-1 inline-flex h-5 min-w-[20px] px-1 items-center justify-center rounded-full bg-dark-900 text-xs text-white">{itemCount}</span>
           </Link>
         </div>
 
@@ -86,7 +90,7 @@ export default function Navbar() {
               <svg className="h-5 w-5" viewBox="0 0 24 24" fill="none" aria-hidden>
                 <path d="M3 3h2l1 14a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2l1-14h2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
               </svg>
-              <span className="ml-1 inline-flex h-5 min-w-[20px] px-1 items-center justify-center rounded-full bg-dark-900 text-xs text-white">0</span>
+              <span className="ml-1 inline-flex h-5 min-w-[20px] px-1 items-center justify-center rounded-full bg-dark-900 text-xs text-white">{itemCount}</span>
             </Link>
           </div>
         </div>
