@@ -13,8 +13,8 @@ const jostMono = Jost({
 });
 
 export const metadata: Metadata = {
-  title: "Nike | E-commerce",
-  description: "An e-commerce platform for Nike shoes",
+  title: "ChrisAir | E-commerce",
+  description: "An e-commerce platform for ChrisAir shoes",
   icons: {
     icon: "/logo.svg",
   }
