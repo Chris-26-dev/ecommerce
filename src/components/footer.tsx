@@ -72,7 +72,7 @@ export default function Footer() {
         <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-4 px-4 py-4 text-light-400 sm:flex-row sm:px-6 lg:px-8">
           <div className="flex items-center gap-3 text-caption">
             <Image src="/globe.svg" alt="" width={16} height={16} />
-            <span>Croatia</span>
+            <span>Philippines</span>
             <span>© 2025 Nike, Inc. All Rights Reserved</span>
           </div>
           <ul className="flex items-center gap-6 text-caption">
