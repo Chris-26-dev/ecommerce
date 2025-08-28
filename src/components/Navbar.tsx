@@ -90,7 +90,7 @@ export default function Navbar() {
     <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-light-300">
       <nav className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8" aria-label="Primary">
         <Link href="/" aria-label="Home" className="flex items-center gap-3">
-          <Image src="/logo.svg" alt="Logo" width={28} height={28} priority className="invert" />
+          <Image src="/logo.svg" alt="Logo" width={60} height={60} priority className="invert" />
         </Link>
 
         <ul className="hidden md:flex items-center gap-8">

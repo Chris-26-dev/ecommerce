@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import SocialProviders from "./SocialProviders";
 import {useRouter} from "next/navigation";
+import { ShoppingBag } from "lucide-react";
 
 type Props = {
   mode: "sign-in" | "sign-up";
@@ -123,6 +124,18 @@ export default function AuthForm({ mode, onSubmit }: Props) {
           className="mt-2 w-full rounded-full bg-dark-900 px-6 py-3 text-body-medium text-light-100 hover:bg-dark-700 focus:outline-none focus:ring-2 focus:ring-dark-900/20"
         >
           {mode === "sign-in" ? "Sign In" : "Sign Up"}
+        </button>
+
+        {/* New: prominent secondary button to redirect to homepage */}
+        <button
+          type="button"
+          onClick={() => router.push("/")}
+          aria-label="Go to homepage"
+          className="mt-3 w-full inline-flex items-center justify-center gap-2 rounded-full border border-light-300 bg-white px-6 py-3 text-body-medium text-dark-900 hover:bg-light-100 focus:outline-none focus:ring-2 focus:ring-dark-900/10"
+        >
+          {/* simple home icon */}
+          <ShoppingBag className="h-4 w-4" />
+          <span>Go Shopping</span>
         </button>
 
         {mode === "sign-up" && (
