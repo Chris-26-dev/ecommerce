@@ -62,6 +62,8 @@ export default function Navbar() {
   async function handleLogout() {
     try {
       await fetch("/api/auth/signout", { method: "POST", credentials: "include" });
+      await fetch("/api/cart/clear", { method: "POST", credentials: "include" });
+      useCartStore.getState().clearCart();
     } catch {
       // ignore
     } finally {

@@ -1,6 +1,7 @@
 import React from "react";
 import OrderSuccess from "@/components/OrderSuccess";
 import { getOrder } from "@/lib/actions/orders";
+import ClearCartOnSuccess from "@/components/ClearCartOnSuccess";
 
 type Props = { searchParams: any };
 
@@ -9,5 +10,10 @@ export default async function Page({ searchParams }: Props) {
   const params = await searchParams;
   const sessionId = params?.session_id;
   const order = sessionId ? await getOrder(sessionId) : null;
-  return <OrderSuccess order={order} />;
+  return (
+    <>
+      <OrderSuccess order={order} />
+      <ClearCartOnSuccess />
+    </>
+  );
 }
