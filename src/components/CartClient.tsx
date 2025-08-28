@@ -17,7 +17,7 @@ function formatPrice(n: number) {
 export default function CartClient() {
   const items = useCartStore((s) => s.items);
   const total = useCartStore((s) => s.total);
-  const addItem = useCartStore((s) => s.addItem);
+  //const addItem = useCartStore((s) => s.addItem);
   const removeItem = useCartStore((s) => s.removeItem);
   const updateQuantity = useCartStore((s) => s.updateQuantity);
   const clearCart = useCartStore((s) => s.clearCart);
@@ -168,7 +168,7 @@ export default function CartClient() {
           </svg>
 
           <h3 className="text-lg font-semibold text-gray-900">Your cart is empty</h3>
-          <p className="mt-2 text-sm text-gray-600">Looks like you haven't added anything yet. Find your next pair below.</p>
+          <p className="mt-2 text-sm text-gray-600">Looks like you haven&apos;t added anything yet. Find your next pair below.</p>
 
           <div className="mt-6 flex items-center justify-center gap-3">
             <Link

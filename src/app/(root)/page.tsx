@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import Card from "@/components/Card";
-import { getCurrentUser } from "@/lib/auth/actions";
+import Link from "next/link";
 import { getAllProducts } from "@/lib/actions/product";
 
 const trending = [
@@ -29,8 +29,6 @@ const trending = [
 ];
 
 const Home = async () => {
-	const user = await getCurrentUser();
-
 	const { products } = await getAllProducts({
 		page: 1,
 		limit: 6,
@@ -74,18 +72,18 @@ const Home = async () => {
 								</p>
 
 								<div className="mt-6 flex flex-wrap gap-3">
-									<a
+									<Link
 										href="/products"
 										className="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2 text-sm font-semibold text-indigo-700 shadow hover:opacity-95"
 									>
 										Shop trending
-									</a>
-									<a
+									</Link>
+									<Link
 										href="/collections"
 										className="inline-flex items-center gap-2 rounded-full border border-white/30 px-4 py-2 text-sm font-semibold text-white hover:bg-white/10"
 									>
 										View collections
-									</a>
+									</Link>
 								</div>
 
 								<ul className="mt-4 flex flex-wrap gap-3 text-sm text-white/90">
@@ -125,14 +123,14 @@ const Home = async () => {
 					<h2 id="trending" className="text-xl font-semibold text-dark-900">
 						Trending now
 					</h2>
-					<a href="/products" className="text-sm text-gray-600 hover:underline">
+					<Link href="/products" className="text-sm text-gray-600 hover:underline">
 						See all
-					</a>
+					</Link>
 				</div>
 
 				<div className="mt-4 grid grid-cols-1 gap-4 sm:grid-cols-3">
 					{trending.map((t) => (
-						<a
+						<Link
 							key={t.src}
 							href={t.href}
 							className="group relative block overflow-hidden rounded-lg bg-gray-100"
@@ -155,7 +153,7 @@ const Home = async () => {
 									<div className="text-xs opacity-80">{t.subtitle}</div>
 								</div>
 							</div>
-						</a>
+						</Link>
 					))}
 				</div>
 			</section>
@@ -166,9 +164,9 @@ const Home = async () => {
 					<h2 id="latest" className="text-heading-3 mb-6 text-dark-900">
 						Latest shoes
 					</h2>
-					<a href="/products" className="hidden text-sm text-gray-600 hover:underline sm:inline">
+					<Link href="/products" className="hidden text-sm text-gray-600 hover:underline sm:inline">
 						Browse all
-					</a>
+					</Link>
 				</div>
 
 				<div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">

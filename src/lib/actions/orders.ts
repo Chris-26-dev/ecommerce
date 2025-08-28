@@ -221,6 +221,7 @@ export async function getOrder(orderIdOrSessionId: string) {
         }
       }
     } catch (err) {
+      console.warn("Failed to enrich order item:", err);
       // ignore enrichment errors, still return item
     }
 

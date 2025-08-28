@@ -19,7 +19,7 @@ export default function OrderSuccess({ order }: { order: OrderProp }) {
     return (
       <div className="mx-auto max-w-4xl px-4 py-16 text-center">
         <h2 className="text-2xl font-semibold">Order not found</h2>
-        <p className="mt-4 text-sm text-gray-600">We couldn't find your order. If you completed payment, contact support.</p>
+        <p className="mt-4 text-sm text-gray-600">We couldn&rsquo;t find your order. If you completed payment, contact support.</p>
         <div className="mt-6">
           <Link href="/" className="inline-block rounded-md bg-gray-900 px-4 py-2 text-white">Continue shopping</Link>
         </div>
@@ -140,7 +140,7 @@ export default function OrderSuccess({ order }: { order: OrderProp }) {
         </div>
 
         <div className="mt-6 text-center text-sm text-gray-500">
-          If you need help with your order, contact <a className="text-gray-900 underline" href="mailto:support@example.com">support@example.com</a>.
+          If you need help with your order, contact <Link className="text-gray-900 underline" href="mailto:support@example.com">support@example.com</Link>.
         </div>
       </div>
     </div>

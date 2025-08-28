@@ -4,7 +4,7 @@ import Card from "@/components/Card";
 import CollapsibleSection from "@/components/CollapsibleSection";
 import ProductGallery from "@/components/ProductGallery";
 import SizePicker from "@/components/SizePicker";
-import { Heart, ShoppingBag, Star } from "lucide-react";
+import { Star } from "lucide-react";
 import ColorSwatches from "@/components/ColorSwatches";
 import AddToBag from "@/components/AddToBag";
 import FavoriteButton from "@/components/FavoriteButton";

@@ -1,11 +1,12 @@
 "use server";
 
-import { headers, cookies } from "next/headers";
+//import { headers, cookies } from "next/headers";
+import { headers } from "next/headers";
 import { stripe } from "@/lib/stripe/client";
 import { db } from "@/lib/db";
 import * as schema from "@/lib/db/schema/index";
 import { eq } from "drizzle-orm";
-import { getCurrentUser, createGuestSession, mergeGuestCartWithUserCart } from "@/lib/auth/actions";
+import { getCurrentUser, mergeGuestCartWithUserCart } from "@/lib/auth/actions";
 
 type ClientCartItem = { id: string; name: string; price: number; quantity: number; image?: string };
 
@@ -23,8 +24,8 @@ export async function createStripeCheckoutSession(clientItems?: ClientCartItem[]
     throw err;
   }
 
-  const cookieStore = await cookies();
-  const guestToken = cookieStore.get("guest_session")?.value ?? undefined;
+  //const cookieStore = await cookies();
+  //const guestToken = cookieStore.get("guest_session")?.value ?? undefined;
 
   // merge any guest cart with user cart
   await mergeGuestCartWithUserCart();

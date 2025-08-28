@@ -47,22 +47,22 @@ export default function ContactPage() {
               <p className="font-medium text-dark-900">Email</p>
               <p>
                 For general inquiries:{" "}
-                <a href="mailto:hello@example.com" className="text-primary-600 hover:underline">
+                <Link href="mailto:hello@example.com" className="text-primary-600 hover:underline">
                   hello@example.com
-                </a>
+                </Link>
               </p>
               <p>
                 For press & partnerships:{" "}
-                <a href="mailto:partners@example.com" className="text-primary-600 hover:underline">
+                <Link href="mailto:partners@example.com" className="text-primary-600 hover:underline">
                   partners@example.com
-                </a>
+                </Link>
               </p>
             </div>
 
             <div>
               <p className="font-medium text-dark-900">Phone</p>
               <p>
-                US: <a href="tel:+18005551234" className="text-primary-600 hover:underline">+1 (800) 555-1234</a>
+                US: <Link href="tel:+18005551234" className="text-primary-600 hover:underline">+1 (800) 555-1234</Link>
               </p>
             </div>
 
